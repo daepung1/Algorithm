@@ -1,39 +1,16 @@
 def solution(board, moves):
 
-    basket=[]
-    t=0
+    basket=[0,1,0]
     answer=0
+    d=len(board)
     for i in moves:
-        if i==1:
-            t=board[0].pop()
-            if t==0:
-                print("잡을 것이 없습니다")
-            else:
-                basket.append(t)
-        elif i==2:
-            t=board[1].pop()
-            if t==0:
-                print("잡을 것이 없습니다")
-            else:
-                basket.append(t)
-        elif i==3:
-            t=board[2].pop()
-            if t==0:
-                print("잡을 것이 없습니다")
-            else:
-                basket.append(t)
-                
-        elif i==4:
-            t=board[3].pop()
-            if t==0:
-                print("잡을 것이 없습니다")
-            else:
-                basket.append(t)
-        elif i==5:
-            t=board[4].pop()
-            if t==0:
-                print("잡을 것이 없습니다")
-            else:
-                basket.append(t)
-               
+        for l in range(d):
+            if board[:][l][i-1] != 0: 
+            
+                basket.append(board[:][l][i-1])
+                board[:][l][i-1]=0
+                if basket[-1]==basket[-2]:
+                    answer=answer+2
+                    del basket[-2:]
+                break
     return answer
