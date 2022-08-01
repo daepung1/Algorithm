@@ -17,17 +17,27 @@ def solution(n, lost, reserve):
     answer = c
     return answer
 n=5
-lost=[2,4,5]
-reserve=[1,5,3]
+lost=[2,7,1,4,4,5,1]
+reserve=[1,4]
 
 reserve=sorted(list(set(reserve)))
 lost=sorted(list(set(lost)))
+print("정렬",reserve)
+print("정렬",lost)
+
 lost2 = [i for i in lost if i not in reserve]
 reserve2 = [i for i in reserve if i not in lost]    
 m=len(reserve2)
 t=len(lost2)
-print(reserve2)
-print(lost2)
+print("정석",reserve2)
+print("정석",lost2)
+for i in reserve:
+    if i in lost:
+        print("i",i)
+        reserve.remove(i)
+        lost.remove(i)
+print("틀림",reserve)
+print("틀림",lost)
 c=n-t
 for i in range(m):  
     for l in range(t):
@@ -35,6 +45,6 @@ for i in range(m):
             c=c+1
             lost[l]=-5
             reserve[i]=-9
-print(c)
+
             
 
