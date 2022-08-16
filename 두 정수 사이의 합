@@ -1,0 +1,25 @@
+def solution(a, b):
+    answer = 0
+    temp=0
+    if a>b:
+        temp=b
+        b=a
+        a=temp        
+            
+    for i in range(a,b+1):
+        answer=answer+i
+    return answer
+a=5
+b=3
+
+answer = 0
+temp=0
+if a>b:
+    temp=b
+    b=a
+    a=temp        
+    
+for i in range(a,b+1):
+    answer=answer+i
+    print(i)
+print(answer)
