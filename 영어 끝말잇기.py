@@ -25,39 +25,83 @@ tank → kick → know → wheel → land → dream → mother → robot → tan
 가장 먼저 탈락하는 사람의 번호와 그 사람이 자신의 몇 번째 차례에 탈락하는지를 구해서 
 return 하도록 solution 함수를 완성해주세요.
 """
-
 def solution(n, words):
-    answer = []
-
-    # [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-    print('Hello Python')
+    answer=[]
+    turn=[]
+    check=[]
+    stack=0
+    fullstack=0
+    if len(words)==0:
+        answer.append(0)
+        answer.append(0)
+        return answer
+    for i in range(n):
+        turn.append(0)
+    
+    for i in range(len(words)):
+        if stack==n:
+            stack=0
+        if i>n-1:
+            l=stack
+        else:
+            l=i
+        if words[i] in check or len(words[i])<=1:
+            answer.append(stack+1)
+            answer.append(turn[stack]+1)
+            return answer
+        elif words[i][0]==words[i-1][-1] or i==0:
+            check.append(words[i])
+            turn[l]=turn[l]+1
+            fullstack=fullstack+1
+        else:
+            answer.append(stack+1)
+            answer.append(turn[stack]+1)
+            return answer
+        stack=stack+1
+    if len(answer)==0:
+        answer.append(0)
+        answer.append(0)
 
     return answer
-count=1
-n=3
-words=	["tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"]
-ansnwer=[]
-check=[words[0]]
-ok=1
-now=2
-w_round=1
 
-for i in range(1,len(words)):
-    print( words[i-1][-1],words[i][0])
-    if words[i] in check:
-        print("1",now)
-        print("2",w_round)
+n=3
+words=["tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"]
+answer=[]
+turn=[]
+check=[]
+stack=0
+fullstack=0
+if len(words)==0:
+    answer.append(0)
+    answer.append(0)
+for i in range(n):
+    turn.append(0)
+print(turn)
+for i in range(len(words)):
+    if stack==3:
+        stack=0
+    if i>n-1:
+        if stack==0:
+            l=0
+        elif stack==1:
+            l=1
+        elif stack==2:
+            l=2
     else:
-        if words[i-1][-1]==words[i][0]:
-            count=count+1
-            now=now+1
-            check.append(words[i])
-            
-        else:
-            print("3",now)
-            print("4",w_round)
-        if count==n:
-            count=0
-            w_round=w_round+1
-        if now==n+1:
-            now=1
+        l=i
+    if words[i] in check or len(words[i])==1:
+        answer.append(stack+1)
+        answer.append(turn[stack]+1)
+        
+    elif words[i][0]==words[i-1][-1] or i==0:
+        check.append(words[i])
+        turn[l]=turn[l]+1
+        fullstack=fullstack+1
+    else:
+        answer.append(stack+1)
+        answer.append(turn[stack]+1)
+        
+    stack=stack+1
+if fullstack==n:
+    answer.append(0)
+    answer.append(0)
