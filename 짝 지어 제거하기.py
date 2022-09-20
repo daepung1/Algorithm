@@ -10,56 +10,36 @@
 b aa baa → bb aa → aa →
 
 의 순서로 문자열을 모두 제거할 수 있으므로 1을 반환합니다.
-"""
-def solution(s):
-    b=[]
-    de=''
-    
-    for i in range(len(s)):
-        b.append(s[i])
-    while(True):
-        temp=b[0]
-        for i in range(1,len(b)):
-            if temp==b[i]:
-                de=b[i]
-                break    
-            temp=b[i]
-        try:
-            b.remove(de)
-            b.remove(de)
-        except:
-            return 0
-            
-        
-        if len(b)==0:
-            return 1
-            
-    
 
-s="caca"
-b=[]
-de=''
-len_y=0
-for i in range(len(s)):
-    b.append(s[i])
-while(True):
-    len_y=len(b)
-    temp=b[0]
-    for i in range(1,len(b)):
-        if temp==b[i]:
-            de=b[i]
-            break    
-        temp=b[i]
-    try:
-        b.remove(de)
-        b.remove(de)
-    except:
-        print(11)
-        break
+문제 풀이 후기: 스택을 사용해야만 풀 수 있는 문제였음 그냥 풀면 for문이나 재귀가 계속 돌아가야 하는데 스택을 쓰면 한번의 for문으로 결과가 나옴
+"""
     
-    if len(b)==0:
-        print("2")
-        break
-    
-    print(b)
-    
+def solution(s):
+    if len(s)==0:
+        return 1
+    elif len(s)==1:
+        return 0
+    else:
+        keyword=''
+        for i in range(1,len(s)):
+            if s[i-1]==s[i]:
+                keyword=s[i]
+        try:
+            s=s.replace(keyword,'',2)
+            return solution(s)
+        except:
+            return 0   
+print(solution("a"))
+s="baabaa"
+def solution(s):
+    temp=[]
+    for i in range(len(s)):
+        temp.append(s[i])
+        print(temp)
+        if i!=0 and len(temp)>=2 and temp[-1]==temp[-2]:
+            temp.pop()
+            temp.pop()
+    if len(temp)==0:
+        return 1
+    else:
+        return 0
