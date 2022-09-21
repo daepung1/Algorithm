@@ -1,3 +1,4 @@
+from collections import deque
 """
 무인도에 갇힌 사람들을 구명보트를 이용하여 구출하려고 합니다. 구명보트는 작아서 한 번에 최대 2명씩 밖에 탈 수 없고, 무게 제한도 있습니다.
 
@@ -21,75 +22,60 @@ people	limit	return
 [70, 80, 50]	100	3
 """
 def solution(people, limit):
-    count=0
-    i=-1
-    people_s=sorted(people)
-    x=0
-    while(True):
-        if len(people_s)==0:
-            break
-        if len(people_s)<=1:
-            people_s.pop()
-            count=count+1
-            break
-    
-        if people_s[0]==people_s[i] or x==1:
-            
-            people_s.pop()
-            
-            count=count+1
-            
-            x=1
-            i=-1
-        elif people_s[0]+people_s[i]<=limit and x==0:
-            
-            people_s.remove(people_s[0])
-            people_s.remove(people_s[i])
-            count=count+1
-            i=-1
-        
-        else:
-            
-            i=i-1
-    return count
-test=[11]
-# people = [30, 40, 50, 60]
-people=[70, 80, 50,50]
-limit=100
-hunum=0
-a=limit
-count=0
-i=-1
-people_s=sorted(people)
-x=0
-while(True):
-    print(count)
-    print(people_s)
-    print(people_s[i])
-    if len(people_s)==0:
-        break
-    if len(people_s)<=1:
-        people_s.pop()
-        count=count+1
-        break
-    
-    if people_s[0]==people_s[i] or x==1:
-        
-        people_s.pop()
-        
-        count=count+1
-        
-        x=1
-        i=-1
-    elif people_s[0]+people_s[i]<=limit and x==0:
-        
-        people_s.remove(people_s[0])
-        people_s.remove(people_s[i])
-        count=count+1
-        i=-1
-    
-    else:
-        
-        i=i-1
+    people=sorted(people)
+    soba=0
 
+    if people[0]+people[len(people)//2]>limit:
+
+        soba=people[len(people)//2:]
+        people=people[:len(people)//2]
+    count=len(soba)
+
+    for i in range(len(people)):
+        if len(people)==0:
+            break
+        elif len(people)==1:
+            people.pop()
+            count=count+1
+            break
+        if people[0]+people[-1]<=limit:
+            people.remove(people[0])
+            people.remove(people[-1])
+            count=count+1
+        else:
+            people.pop()
+            count=count+1
+    return count
+
+# people = [30, 40, 50, 60]
+# people=[70, 80, 50]
+people=[100,30,45,30,90,20,50,70,70,70,40,20,100,90]
+people=sorted(people)
+
+
+limit=100
+soba=0
+count=0
+if people[0]+people[len(people)//2]>limit:
+
+    soba=people[len(people)//2:]
+    people=people[:len(people)//2]
+    count=len(soba)
+people=deque(people)
+for i in range(len(people)):
+    if len(people)==0:
+        break
+    elif len(people)==1:
+        people.pop()
+        count=count+1
+        break
+    if people[0]+people[-1]<=limit:
+        people.popleft()
+        people.pop()
+        count=count+1
+    else:
+        people.pop()
+        count=count+1
+
+print(people)
 print(count)
